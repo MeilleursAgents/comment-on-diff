@@ -1,0 +1,20 @@
+[Makefile]
+indent_style = tab
+
+[*.py]
+case_sensitive = true
+charset = utf-8
+combine_as_imports = true
+end_of_line = lf
+force_grid_wrap = 0
+include_trailing_comma = true
+indent_size = 4
+indent_style = space
+insert_final_newline = true
+line_length = 88
+lines_after_imports = 2
+lines_after_imports = 2
+multi_line_output = 3
+sections = FUTURE,STDLIB,THIRDPARTY,LOCALFOLDER,FIRSTPARTY
+trim_trailing_whitespace = true
+use_parentheses = true
