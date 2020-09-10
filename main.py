@@ -4,15 +4,13 @@ import json
 from os import environ
 from typing import List
 
+import yaml
 from git import Repo
 from github import Github
 
 
-CONFIG = {
-    "main.py": "MAIN",
-    "toto": "you change toto you motherfucker",
-}
-
+with open(".github/comment-on-diff.yaml") as f:
+    CONFIG = yaml.load(f)
 
 with open(environ["GITHUB_EVENT_PATH"]) as f:
     event = json.load(f)
@@ -22,7 +20,6 @@ gh_repo = github.get_repo(event["repository"]["full_name"])
 gh_pr = gh_repo.get_pull(event["number"])
 # We will fetch comments later if needed. This avoids an uneeded API call.
 gh_comments: List[str] = []
-
 
 repo = Repo(".")
 for diff in repo.commit(environ["INPUT_HEAD"]).diff(repo.commit(environ["INPUT_BASE"])):
