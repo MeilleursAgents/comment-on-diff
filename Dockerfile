@@ -1,5 +1,10 @@
 FROM python:3.8
 
-ADD main.py /main.py
+COPY . /app
+WORKDIR /app
+
+RUN pip install poetry && \
+    poetry config virtualenvs.create false && \
+    poetry install
 
 ENTRYPOINT ["./main.py"]
