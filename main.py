@@ -13,7 +13,9 @@ CONFIG = {
 }
 
 
-event = json.load(environ["GITHUB_EVENT_PATH"])
+with open(envirion["GITHUB_EVENT_PATH"]) as f:
+    event = json.load(f)
+
 github = Github(environ["GITHUB_TOKEN"])
 gh_repo = github.get_repo(event["repository"]["full_name"])
 gh_pr = gh_repo.get_pull(event["number"])
