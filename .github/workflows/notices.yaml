@@ -17,4 +17,6 @@ jobs:
       - name: Comment on diff
         uses: erdnaxeli/comment-on-diff@master
         env:
+          BASE: ${{ github.event.pull_request.base.sha }}
+          HEAD: ${{ github.event.pull_request.head.sha }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
