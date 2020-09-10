@@ -1,0 +1,11 @@
+name: Notices
+on: [pull_request]
+jobs:
+  build:
+    name: Send notices
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+      - name: Comment on diff
+        uses: erdnaxeli/comment-on-diff@master
