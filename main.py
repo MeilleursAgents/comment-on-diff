@@ -22,7 +22,7 @@ gh_pr = gh_repo.get_pull(event["number"])
 
 
 repo = Repo(".")
-for diff in repo.head.commit.diff(repo.commit("master")):
+for diff in repo.commit(environ["HEAD"]).diff(repo.commit(environ["BASE"])):
     for path in CONFIG:
         if diff.a_path.startswith(path) or diff.b_path.startswith(path):
             gh_pr.create_issue_comment(CONFIG["path"])
