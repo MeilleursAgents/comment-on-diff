@@ -3,4 +3,4 @@ author: Alexandre Morignot <erdnaxeli@cervoi.se>
 description: Add a comment on a PR depending on the diff
 runs:
   using: 'docker'
-  image: 'Dockerfile'
+  image: 'docker://docker.pkg.github.com/erdnaxeli/comment-on-diff/action:latest'
