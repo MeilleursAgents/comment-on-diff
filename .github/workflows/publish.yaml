@@ -1,0 +1,17 @@
+name: Publish
+on:
+  push:
+    branches:
+      - master
+jobs:
+  build:
+    name: Pubish
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v2
+      - name: Publish
+        run: |
+          echo ${{ secrets.GITHUB_TOKEN }} | docker login docker.pkg.github.com -u erdnaxeli --password-stdin
+          docker build -t docker.pkg.github.com/erdnaxeli/comment-on-diff/action:latest .
+          docker push docker.pkg.github.com/erdnaxeli/comment-on-diff/action:latest
