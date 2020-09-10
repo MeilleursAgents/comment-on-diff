@@ -25,4 +25,4 @@ repo = Repo(".")
 for diff in repo.commit(environ["HEAD"]).diff(repo.commit(environ["BASE"])):
     for path in CONFIG:
         if diff.a_path.startswith(path) or diff.b_path.startswith(path):
-            gh_pr.create_issue_comment(CONFIG["path"])
+            gh_pr.create_issue_comment(CONFIG[path])
