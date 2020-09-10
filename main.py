@@ -10,7 +10,7 @@ from github import Github
 
 
 with open(".github/comment-on-diff.yaml") as f:
-    CONFIG = yaml.load(f)
+    CONFIG = yaml.safe_load(f)
 
 with open(environ["GITHUB_EVENT_PATH"]) as f:
     event = json.load(f)
