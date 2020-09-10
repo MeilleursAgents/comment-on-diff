@@ -1,0 +1,22 @@
+name: Notices
+on: [pull_request]
+jobs:
+  build:
+    name: Send notices
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+      - name: Fetch branches
+        run: |
+          git fetch --no-tags --prune --depth=100 origin "+refs/heads/${BASE}:refs/remotes/origin/${BASE}"
+          git fetch --no-tags --prune --depth=100 origin "+refs/heads/${HEAD}:refs/remotes/origin/${HEAD}"
+        env:
+          BASE: ${{ github.base_ref }}
+          HEAD: ${{ github.head_ref }}
+      - name: Comment on diff
+        uses: erdnaxeli/comment-on-diff@master
+        env:
+          BASE: ${{ github.event.pull_request.base.sha }}
+          HEAD: ${{ github.event.pull_request.head.sha }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
