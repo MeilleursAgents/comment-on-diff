@@ -7,4 +7,4 @@ RUN pip install poetry && \
     poetry config virtualenvs.create false && \
     poetry install --no-dev
 
-ENTRYPOINT ["./main.py"]
+ENTRYPOINT ["/app/main.py"]
