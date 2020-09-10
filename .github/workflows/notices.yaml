@@ -7,6 +7,13 @@ jobs:
     steps:
       - name: Check out code
         uses: actions/checkout@v2
+      - name: Fetch branches
+        run: |
+          git fetch --no-tags --prune --depth=100 origin "+refs/heads/${BASE}:refs/remotes/origin/${BASE}"
+          git fetch --no-tags --prune --depth=100 origin "+refs/heads/${HEAD}:refs/remotes/origin/${HEAD}"
+        env:
+          BASE: ${{ github.base_ref }}
+          HEAD: ${{ github.head_ref }}
       - name: Comment on diff
         uses: erdnaxeli/comment-on-diff@master
         env:
