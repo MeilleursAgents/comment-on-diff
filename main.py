@@ -29,4 +29,4 @@ for diff in repo.commit(environ["INPUT_HEAD"]).diff(repo.commit(environ["INPUT_B
                 gh_comments = [c.body for c in gh_pr.get_issue_comments()]
 
             if msg not in gh_comments:
-                gh_pr.create_issue_comment(CONFIG[msg])
+                gh_pr.create_issue_comment(msg)
