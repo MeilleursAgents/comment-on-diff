@@ -9,3 +9,5 @@ jobs:
         uses: actions/checkout@v2
       - name: Comment on diff
         uses: erdnaxeli/comment-on-diff@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
