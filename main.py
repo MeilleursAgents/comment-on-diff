@@ -17,7 +17,7 @@ CONFIG = {
 with open(environ["GITHUB_EVENT_PATH"]) as f:
     event = json.load(f)
 
-github = Github(environ["GITHUB_TOKEN"])
+github = Github(environ["INPUT_GITHUB_TOKEN"])
 gh_repo = github.get_repo(event["repository"]["full_name"])
 gh_pr = gh_repo.get_pull(event["number"])
 # We will fetch comments later if needed. This avoids an uneeded API call.
@@ -25,7 +25,7 @@ gh_comments: List[str] = []
 
 
 repo = Repo(".")
-for diff in repo.commit(environ["HEAD"]).diff(repo.commit(environ["BASE"])):
+for diff in repo.commit(environ["INPUT_HEAD"]).diff(repo.commit(environ["INPUT_BASE"])):
     for path, msg in CONFIG.items():
         if diff.a_path.startswith(path) or diff.b_path.startswith(path):
             if not gh_comments:

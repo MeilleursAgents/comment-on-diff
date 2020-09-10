@@ -4,3 +4,13 @@ description: Add a comment on a PR depending on the diff
 runs:
   using: 'docker'
   image: 'docker://erdnaxeli/comment-on-diff:latest'
+  inputs:
+    base:
+      description: "base commit"
+      required: true
+    head:
+      description: "head commit"
+      required: true
+    github_token:
+      description: "github's token"
+      required: true
