@@ -13,7 +13,7 @@ CONFIG = {
 }
 
 
-with open(envirion["GITHUB_EVENT_PATH"]) as f:
+with open(environ["GITHUB_EVENT_PATH"]) as f:
     event = json.load(f)
 
 github = Github(environ["GITHUB_TOKEN"])
