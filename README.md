@@ -26,15 +26,22 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
-You also need a config file named `.github/comment-on-diff.yaml`, wich is a YAML dict where keys are paths prefixes and value are the message to send.
+You also need a config file named `.github/comment-on-diff.yaml`, wich is a YAML dict where keys are paths regexes and value are the message to send.
 
 Example:
 ```
 main.py: You have changed the main.py file, don't forget to run the linter.
 some/folder: Any modification on this folder implies you agree with something.
+.+/a?b.py: hey looks at that regex!
 ```
 
-With this any PR touching main.py would get a comment with the message "You have changed…", and any PR touching `some/folder/any/file` will a comment with the message "Any modification…".
+With this a modification on those files will trigger a comment with the corresponding message:
+* `main.py`: "You have changed…"
+* `some/folder/any/file`: "Any modification…"
+* `something/ab.py`: "hey…"
+* `somethingelse/very/far/away/b.py`: "hey…"
+
+Beware that the regex is matched from the start of the file path, so `ab?c.py` would match `abc.py` but not `somewhere/abc.py`.
 
 The messages can be on [multiple lines](https://adminswerk.de/multi-line-string-yaml-ansible-I/) and can use markdown.
 
