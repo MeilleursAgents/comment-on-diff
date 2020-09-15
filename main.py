@@ -10,9 +10,9 @@ from git import Repo
 from github import Github
 
 
-def check_match(regex: str, path: str) -> bool:
-    """Check if the regex matches the given path."""
-    return re.match(regex, path) is not None
+def check_match(regex: str, tests: List[str]) -> bool:
+    """Check if the regex matches the any string in `tests`."""
+    return any(re.match(regex, test) for test in tests)
 
 
 if __name__ == "__main__":
@@ -34,7 +34,7 @@ if __name__ == "__main__":
     merge_base = repo.merge_base(head, base)
     for diff in repo.commit(head).diff(merge_base):
         for path, msg in CONFIG.items():
-            if check_match(path, diff.a_path):
+            if check_match(path, [diff.a_path, diff.b_path]):
                 if not gh_comments:
                     gh_comments = [c.body for c in gh_pr.get_issue_comments()]
 
