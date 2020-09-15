@@ -29,9 +29,10 @@ if __name__ == "__main__":
     gh_comments: List[str] = []
 
     repo = Repo(".")
-    for diff in repo.commit(environ["INPUT_HEAD"]).diff(
-        repo.commit(environ["INPUT_BASE"])
-    ):
+    head = environ["INPUT_HEAD"]
+    base = environ["INPUT_BASE"]
+    merge_base = repo.merge_base(head, base)
+    for diff in repo.commit(head).diff(merge_base):
         for path, msg in CONFIG.items():
             if check_match(path, diff.a_path):
                 if not gh_comments:
