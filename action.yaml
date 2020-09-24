@@ -1,5 +1,5 @@
 name: Comment on diff
-author: Alexandre Morignot <erdnaxeli@cervoi.se>
+author: Alexandre Morignot <amorignot@meilleursagents.com>
 description: Add a comment on a PR depending on the diff
 runs:
   using: 'docker'
