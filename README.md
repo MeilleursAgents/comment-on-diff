@@ -19,7 +19,7 @@ jobs:
           BASE: ${{ github.base_ref }}
           HEAD: ${{ github.head_ref }}
       - name: Comment on diff
-        uses: erdnaxeli/comment-on-diff@master
+        uses: MeilleursAgents/comment-on-diff@master
         with:
           base: ${{ github.event.pull_request.base.sha }}
           head: ${{ github.event.pull_request.head.sha }}
