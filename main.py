@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import json
+import logging
 import re
 from os import environ
 from typing import List, Tuple, TypedDict, Union
@@ -8,6 +9,9 @@ from typing import List, Tuple, TypedDict, Union
 import yaml
 from git import Repo
 from github import Github
+
+
+logging.basicConfig(level=logging.INFO)
 
 
 # We will fetch comments later if needed. This avoids an uneeded API call.
@@ -73,10 +77,12 @@ if __name__ == "__main__":
 
     # We look for all diffs
     for diff in repo.commit(head).diff(merge_base):
+        logging.info(f"Checking diff between {diff.a_path} and {diff.b_path}")
         for path, params in CONFIG.items():
             msg, absent = read_params(params)
 
             if check_match(path, [diff.a_path, diff.b_path]):
+                logging.info(f"Found a matching rules: '{path}'")
                 if absent:
                     # We register this diff was found, but we don't send a comment
                     absent_diffs_found.append(path)
@@ -85,13 +91,16 @@ if __name__ == "__main__":
                 send_comment(msg)
 
     # We look for missing diffs
+    logging.info("Checking missing diffs")
     for path, params in CONFIG.items():
         msg, absent = read_params(params)
         if not absent:
             continue
 
+        logging.info(f"Checking rule '{path}'")
         # Did we found the diff?
         if path in absent_diffs_found:
+            logging.info(f"The diff for rule '{path}' was found, not sending a comment")
             continue
 
         send_comment(msg)
