@@ -1,11 +1,11 @@
 format:
-	poetry run black main.py
-	poetry run isort main.py
+	poetry run black *.py
+	poetry run isort *.py
 
 lint:
-	poetry run black --check main.py
-	poetry run mypy --ignore-missing-imports main.py
-	poetry run flake8 .
+	poetry run black --check *.py
+	poetry run mypy --ignore-missing-imports *.py
+	poetry run flake8 main.py
 
 test:
 	poetry run pytest

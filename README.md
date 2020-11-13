@@ -1,4 +1,8 @@
-This github action can add a comment on a pull request depending on which files are modified.
+# Comment-on-diff
+
+This github action adds a comment on a pull request depending on which files are modified.
+
+## Usage
 
 To use it you need a github workflow like this:
 ```
@@ -26,7 +30,9 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
-You also need a config file named `.github/comment-on-diff.yaml`, wich is a YAML dict where keys are paths regexes and value are the message to send.
+## Configuration
+
+You need a config file named `.github/comment-on-diff.yaml`, wich is a YAML dict where keys are paths regexes and value are the message to send.
 
 Example:
 ```
@@ -46,3 +52,15 @@ Beware that the regex is matched from the start of the file path, so `ab?c.py` w
 The messages can be on [multiple lines](https://adminswerk.de/multi-line-string-yaml-ansible-I/) and can use markdown.
 
 The action takes care of not sending twice the same message, to not spam the PR.
+
+### Anti match
+
+You can also trigger a comment when a file is **not** modified.
+For that you need to use the extended config structure, like this:
+```
+CHANGELOG.md:
+  msg: You need to edit the changelog
+  absent: true
+```
+
+This configuration will trigger a comment when no diff is found for "CHANGELOG.md".
