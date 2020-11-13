@@ -29,5 +29,10 @@ def test_check_match(regex, tests, expected):
         ({"msg": "some message", "absent": True}, ("some message", True)),
     ),
 )
-def test_read_params(params, expected):
+def test_read_params__ok(params, expected):
     assert read_params(params) == expected
+
+
+def test_read_params__invalid():
+    with pytest.raises(ValueError):
+        read_params(["invalid", "parmas"])

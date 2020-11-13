@@ -40,6 +40,8 @@ def read_params(params: Union[str, Params]) -> Tuple[str, bool]:
     elif isinstance(params, dict):
         msg = params["msg"]
         absent = params["absent"]
+    else:
+        raise ValueError(f"Unknown parameters '{params}'")
 
     return msg, absent
 
