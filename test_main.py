@@ -1,6 +1,6 @@
 import pytest
 
-from main import check_match
+from main import check_match, read_params
 
 
 @pytest.mark.parametrize(
@@ -16,7 +16,23 @@ from main import check_match
         ("yes.*do", ["yes do", "yesyes do"], True),
         ("yes.*do", ["I do yes", "really yes do"], False),
         ("yes.*do", ["yes nop", "do still nop"], False),
-    )
+    ),
 )
 def test_check_match(regex, tests, expected):
     assert check_match(regex, tests) is expected
+
+
+@pytest.mark.parametrize(
+    ("params", "expected"),
+    (
+        ("some message", ("some message", False)),
+        ({"msg": "some message", "absent": True}, ("some message", True)),
+    ),
+)
+def test_read_params__ok(params, expected):
+    assert read_params(params) == expected
+
+
+def test_read_params__invalid():
+    with pytest.raises(ValueError):
+        read_params(["invalid", "parmas"])

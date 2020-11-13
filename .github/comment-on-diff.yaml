@@ -3,3 +3,9 @@ main.py: |-
 
   I see you.
 toto: "You touched toto!"
+README:
+  msg: "The README changed!"
+  absent: false
+CHANGELOG:
+  msg: "The CHANGELOG didn't change."
+  absent: true
