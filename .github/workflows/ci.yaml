@@ -1,0 +1,26 @@
+name: CI
+on: [pull_request]
+jobs:
+  build:
+    name: Run CI
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+      - name: Fetch branches
+        run: |
+          git fetch --no-tags --prune --depth=100 origin "+refs/heads/${BASE}:refs/remotes/origin/${BASE}"
+          git fetch --no-tags --prune --depth=100 origin "+refs/heads/${HEAD}:refs/remotes/origin/${HEAD}"
+        env:
+          BASE: ${{ github.base_ref }}
+          HEAD: ${{ github.head_ref }}
+      - name: Install env
+        run: |
+          pip install poetry
+          poetry install
+      - name: Tests
+        run: |
+          make test
+      - name: Lint
+        run: |
+          make lint

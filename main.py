@@ -46,6 +46,7 @@ def read_params(params: Union[str, Params]) -> Tuple[str, bool]:
 
     return msg, absent
 
+
 def normalize_comment(comment: str) -> str:
     """
     Normalize a comment.
