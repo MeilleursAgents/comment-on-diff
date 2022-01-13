@@ -4,7 +4,7 @@ import json
 import logging
 import re
 from os import environ
-from typing import List, Tuple, TypedDict, Union
+from typing import TypedDict
 
 import yaml
 from git import Repo
@@ -15,7 +15,7 @@ logging.basicConfig(level=logging.INFO)
 
 
 # We will fetch comments later if needed. This avoids an uneeded API call.
-gh_comments: List[str] = []
+gh_comments: list[str] = []
 
 
 class Params(TypedDict):
@@ -23,12 +23,12 @@ class Params(TypedDict):
     absent: bool
 
 
-def check_match(regex: str, tests: List[str]) -> bool:
+def check_match(regex: str, tests: list[str]) -> bool:
     """Check if the regex matches the any string in `tests`."""
     return any(re.match(regex, test) for test in tests)
 
 
-def read_params(params: Union[str, Params]) -> Tuple[str, bool]:
+def read_params(params: str | Params) -> tuple[str, bool]:
     """
     Read parameters.
 
@@ -88,7 +88,7 @@ if __name__ == "__main__":
     base = environ["INPUT_BASE"]
     merge_base = repo.merge_base(head, base)
 
-    absent_diffs_found: List[str] = []
+    absent_diffs_found: list[str] = []
 
     # We look for all diffs
     for diff in repo.commit(head).diff(merge_base):
