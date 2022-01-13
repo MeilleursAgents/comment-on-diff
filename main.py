@@ -29,7 +29,8 @@ def check_match(regex: str, tests: List[str]) -> bool:
 
 
 def read_params(params: Union[str, Params]) -> Tuple[str, bool]:
-    """Read parameters.
+    """
+    Read parameters.
 
     The source can be either a string or a dict. It applies default values and
     return all parameters as a tuple.
@@ -45,17 +46,28 @@ def read_params(params: Union[str, Params]) -> Tuple[str, bool]:
 
     return msg, absent
 
+def normalize_comment(comment: str) -> str:
+    """
+    Normalize a comment.
+
+    It does the following:
+      * uncheck checked boxes
+    """
+    fixed = comment.replace("[x]", "[ ]")
+    return fixed
+
 
 def send_comment(msg: str) -> None:
-    """Send a comment to github
+    """
+    Send a comment to Github.
 
     If the comment was already sent, do not send it again.
     """
     global gh_comments
     if not gh_comments:
-        gh_comments = [c.body for c in gh_pr.get_issue_comments()]
+        gh_comments = [normalize_comment(c.body) for c in gh_pr.get_issue_comments()]
 
-    if msg not in gh_comments:
+    if normalize_comment(msg) not in gh_comments:
         gh_pr.create_issue_comment(msg)
 
 

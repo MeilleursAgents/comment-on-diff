@@ -1,6 +1,6 @@
 import pytest
 
-from main import check_match, read_params
+from main import check_match, normalize_comment, read_params
 
 
 @pytest.mark.parametrize(
@@ -20,6 +20,18 @@ from main import check_match, read_params
 )
 def test_check_match(regex, tests, expected):
     assert check_match(regex, tests) is expected
+
+
+@pytest.mark.parametrize(
+    ("comment", "expected"),
+    (
+        ("this is a test", "this is a test"),
+        ("[ ] a check box unchecked", "[ ] a check box unchecked"),
+        ("[x] a check box checked", "[ ] a check box checked"),
+    ),
+)
+def test_normalize_comment(comment, expected):
+    assert normalize_comment(comment) == expected
 
 
 @pytest.mark.parametrize(
