@@ -6,19 +6,115 @@ authors = ["Alexandre Morignot <erdnaxeli@cervoi.se>"]
 license = "MIT"
 
 [tool.poetry.dependencies]
-python = "^3.8"
+python = "^3.10"
 gitpython = "^3.1.8"
-pygithub = "^1.53"
-pyyaml = "^5.3.1"
+pygithub = "^2.0"
+pyyaml = "^6.0"
 
 [tool.poetry.dev-dependencies]
-mypy = "^0.910"
-black = "^21.12b0"
-pytest = "^6.0.1"
-flake8-docstrings = "^1.6.0"
-flake8-isort = "^4.1.1"
+mypy = "*"
+pytest = "^7.0"
+ruff = "*"
 types-PyYAML = "^6.0.3"
 
 [build-system]
 requires = ["poetry>=0.12"]
 build-backend = "poetry.masonry.api"
+
+[tool.ruff]
+line-length = 88
+indent-width = 4
+target-version = "py39"
+
+[tool.ruff.lint]
+select = [
+    # pycodestyle
+  "E", "W",
+  # Pyflakes
+  "F",
+  # flake8-bugbear
+  "B",
+  # pydocstyle
+  "D",
+  # flake8-logging-format
+  "G",
+  # isort
+  "I",
+  # mcabbe
+  "C90",
+  # pep8-naming
+  "N",
+  # flake8-comprehensions
+  "C4",
+  # flake8-datetimez
+  #"DTZ",
+  # flake8-simplify
+  "SIM",
+  # flake8-debugger
+  "T",
+  # flake8-pie
+  "PIE",
+  # flake8-upgrade
+  "UP",
+  # Ruff-specific rules
+  "RUF",
+]
+ignore = [
+  # cached-instance-method
+  "B019",
+  # missing docstrings
+  "D100", "D101", "D102", "D103", "D104", "D105", "D106", "D107",
+  # one-blank-line-before-class
+  "D203",
+  # multi-line-summary-first-line
+  "D212",
+  # first line should not start with "This"
+  "D404",
+  # conflict with black
+  "E501", "D206", "W191",
+  # explicit-f-string-type-conversion
+  "RUF010",
+  # mutable-class-default
+  "RUF012",
+  # Use X | Y for type annotations
+  "UP007",
+  # try - except - pass
+  "SIM105",
+  # ternary operator
+  "SIM108",
+]
+
+[tool.ruff.isort]
+combine-as-imports = true
+extra-standard-library = ["zoneinfo"]
+lines-after-imports = 2
+section-order = [
+  "future",
+  "standard-library",
+  "third-party",
+  "meilleursagents",
+  "first-party",
+  "tests",
+  "local-folder",
+]
+
+[tool.ruff.isort.sections]
+meilleursagents = [
+  "ma_apiclients",
+  "ma_bestranking",
+  "ma_celery_utils",
+  "ma_flask_auth",
+  "ma_flask_common",
+  "ma_flask_smorest_common",
+  "ma_fs",
+  "ma_jinja_common",
+  "ma_models",
+  "ma_pubsub",
+]
+tests = ["tests"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+#magic-trailing-comma = "respect"
+line-ending = "auto"
