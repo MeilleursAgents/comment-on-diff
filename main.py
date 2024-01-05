@@ -70,6 +70,7 @@ def send_comment(msg: str) -> None:
 
     if normalize_comment(msg) not in gh_comments:
         gh_pr.create_issue_comment(msg)
+        gh_comments.append(msg)
 
 
 if __name__ == "__main__":
@@ -113,7 +114,7 @@ if __name__ == "__main__":
             continue
 
         logging.info(f"Checking rule '{path}'")
-        # Did we found the diff?
+        # Did we find the diff?
         if path in absent_diffs_found:
             logging.info(f"The diff for rule '{path}' was found, not sending a comment")
             continue
