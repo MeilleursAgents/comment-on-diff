@@ -1,9 +1,9 @@
 name: Comment on diff
 author: Alexandre Morignot <amorignot@meilleursagents.com>
-description: Add a comment on a PR depending on the diff
+description: Add a comment on a PR depending on the diff
 runs:
   using: 'docker'
-  image: 'docker://meilleursagentstech/comment-on-diff:latest'
+  image: 'Dockerfile'
 inputs:
   base:
     description: "base commit"
