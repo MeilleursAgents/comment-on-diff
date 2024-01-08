@@ -8,6 +8,7 @@ from typing import TypedDict
 
 import yaml
 from git import GitConfigParser, Repo
+from git.config import get_config_path
 from github import Github
 
 
@@ -85,9 +86,9 @@ if __name__ == "__main__":
     gh_pr = gh_repo.get_pull(event["number"])
 
     workspace = environ["GITHUB_WORKSPACE"]
-    GitConfigParser(read_only=False, config_level="global").add_value(
-        "safe", "directory", workspace
-    ).release()
+    GitConfigParser(
+        get_config_path("global"), read_only=False, config_level="global"
+    ).add_value("safe", "directory", workspace).release()
 
     repo = Repo(workspace)
     head = environ["INPUT_HEAD"]
