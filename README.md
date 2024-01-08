@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: Fetch branches
         run: |
           git fetch --no-tags --prune --depth=100 origin "+refs/heads/${BASE}:refs/remotes/origin/${BASE}"
