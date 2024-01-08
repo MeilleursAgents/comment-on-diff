@@ -7,7 +7,7 @@ from os import environ
 from typing import TypedDict
 
 import yaml
-from git import Repo
+from git import GitConfigParser, Repo
 from github import Github
 
 
@@ -84,7 +84,12 @@ if __name__ == "__main__":
     gh_repo = github.get_repo(event["repository"]["full_name"])
     gh_pr = gh_repo.get_pull(event["number"])
 
-    repo = Repo(".")
+    workspace = environ["GITHUB_WORKSPACE"]
+    GitConfigParser(read_only=False, config_level="global").add_value(
+        "safe", "directory", workspace
+    ).release()
+
+    repo = Repo(workspace)
     head = environ["INPUT_HEAD"]
     base = environ["INPUT_BASE"]
     merge_base = repo.merge_base(head, base)
