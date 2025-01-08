@@ -11,14 +11,14 @@ gitpython = "^3.1.8"
 pygithub = "^2.0"
 pyyaml = "^6.0"
 
-[tool.poetry.dev-dependencies]
+[tool.poetry.group.dev.dependencies]
 mypy = "*"
 pytest = "^7.0"
 ruff = "*"
 types-PyYAML = "^6.0.3"
 
 [build-system]
-requires = ["poetry>=0.12"]
+requires = ["poetry>=2.0.0"]
 build-backend = "poetry.masonry.api"
 
 [tool.ruff]

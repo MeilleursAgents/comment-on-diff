@@ -13,7 +13,7 @@ jobs:
       - name: Install env
         run: |
           pip install poetry
-          poetry install
+          poetry install --no-root
       - name: Tests
         run: |
           make test
