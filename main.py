@@ -98,12 +98,12 @@ if __name__ == "__main__":
     absent_diffs_found: list[str] = []
 
     # We look for all diffs
-    for diff in repo.commit(head).diff(merge_base):
+    for diff in repo.commit(head).diff(merge_base):  # type: ignore
         logging.info("Checking diff between %s and %s", diff.a_path, diff.b_path)
         for path, params in CONFIG.items():
             msg, absent = read_params(params)
 
-            if check_match(path, [diff.a_path, diff.b_path]):
+            if check_match(path, [diff.a_path, diff.b_path]):  # type: ignore
                 logging.info("Found a matching rules: '%s'", path)
                 if absent:
                     # We register this diff was found, but we don't send a comment

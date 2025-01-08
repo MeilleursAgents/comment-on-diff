@@ -8,6 +8,6 @@ RUN cd app && \
     apt-get clean && \
     pip install poetry && \
     poetry config virtualenvs.create false && \
-    poetry install --no-dev
+    poetry install --without dev --no-root
 
 ENTRYPOINT ["/app/main.py"]
